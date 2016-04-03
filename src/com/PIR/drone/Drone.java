@@ -57,4 +57,19 @@ public class Drone {
 		return vitesse;
 	}
 	
+	public float[] getRotationMatrix(){
+		return currModel;
+	}
+	
+	public float getPosX(){
+		return currPos[0];
+	}
+	
+	public float getPosY(){
+		return currPos[1];
+	}
+	
+	public float getPosZ(){
+		return currPos[2];
+	}
 }

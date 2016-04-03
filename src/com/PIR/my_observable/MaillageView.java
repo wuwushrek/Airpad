@@ -140,6 +140,7 @@ public class MaillageView {
 		GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
 		mPositionBuffer=buffers[0];
 		maillageBuffer.limit(0);
+		
 		mMVPMatrixHandle=GLES20.glGetUniformLocation(mProgramHandle,"u_MVPMatrix");
 		mPositionHandle = GLES20.glGetAttribLocation(mProgramHandle, "a_Position");
 		mColorHandle = GLES20.glGetAttribLocation(mProgramHandle, "a_Color");
