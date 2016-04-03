@@ -70,7 +70,7 @@ public class MaillageView {
 		}
 	}
 	
-	public FloatBuffer getGroundBuffer(){
+	FloatBuffer getGroundBuffer(){
 		final float [] groundPosition = new float[35*POINT_BY_AXES*POINT_BY_AXES];
 		int groundPositionDataOffset=0;
 		final int segments = 2*POINT_BY_AXES -1;
@@ -123,7 +123,7 @@ public class MaillageView {
 		return maillageBuffer;
 	}
 	
-	void initialiseGround(){
+	public void initialiseGround(){
 		final String vertexShader = RawResourceReader.readTextFileFromRawResource(mContext,com.PIR.airpad.R.raw.vertex_shader);
 		final String fragmentShader = RawResourceReader.readTextFileFromRawResource(mContext, com.PIR.airpad.R.raw.fragment_shader);
 		final int vertexShaderHandle = ShaderHelper.compileShader(GLES20.GL_VERTEX_SHADER,vertexShader);
