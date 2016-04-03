@@ -28,7 +28,8 @@ public class Drone {
 		float v = vitesse/SQRT3;
 		float[] vect = {v,v,v,0};
 		float[] res = new float[4];
-		Matrix.multiplyMV(res, 0, currModel, 0, vect, 0);
+		Matrix.multiplyMV(res,0,currModel,0,vect,0);
+		move(res[0],res[1],res[2]);
 	}
 	
 	public void rotate(float angleX ,float angleY , float angleZ){
