@@ -25,7 +25,7 @@ public class Airpad_main extends Activity {
 		surfView.setRenderer(droneRender);
 		setContentView(surfView);
 		surfView.register();
-		setContentView(R.layout.activity_airpad_main);
+		//setContentView(R.layout.activity_airpad_main);
 	}
 	@Override
 	public void onPause(){

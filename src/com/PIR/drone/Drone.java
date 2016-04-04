@@ -11,7 +11,7 @@ public class Drone {
 	private float[] currModel = new float[16];
 	
 	public Drone(){
-		omega = 100.0f;
+		omega = 360.0f;
 		vitesse = 5.0f;
 		currPos = new float[3];
 		currAngle = new float[3];

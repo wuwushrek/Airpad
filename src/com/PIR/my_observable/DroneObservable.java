@@ -51,15 +51,16 @@ public class DroneObservable {
 	
 	public void draw(float[] mMatrixView , float[] mProjectionView){
 		long l = SystemClock.uptimeMillis() % this.rotationTIME;
-	    float f = mDrone.getOmega()/ (float)this.rotationTIME * (int) l;
+	    float f = (mDrone.getOmega()/ (float)this.rotationTIME) * (int) l;
 	    
 	    Matrix.setIdentityM(mCurrentTranslation,0);
 	    Matrix.translateM(mCurrentTranslation, 0, mDrone.getPosX(), mDrone.getPosY(), mDrone.getPosZ());
 	    
 	    GLES20.glUseProgram(mProgramHandle);
 	    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, mHeliceBuffer[0]);
-	    GLES20.glEnableVertexAttribArray(mPositionHandle);
 	    GLES20.glUniform4fv(mColorHandle, 1, backgroundColor, 0);
+
+	    GLES20.glEnableVertexAttribArray(mPositionHandle);
 	    GLES20.glVertexAttribPointer(mPositionHandle,COORDS_PER_POINT, 
 	    		GLES20.GL_FLOAT, false, BYTES_PER_FLOAT*COORDS_PER_POINT, 0);
 	    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
@@ -68,7 +69,7 @@ public class DroneObservable {
 	    for(int i=0;i<4 ; i++){
 	    	GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, i*5, 5);
 	    }
-	    drawAux(mMatrixView,mProjectionView,f,1,1,-1);
+	   drawAux(mMatrixView,mProjectionView,f,1,1,-1);
 	    for(int i=4;i<8;i++){
 	    	GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, i*5, 5);
 	    }
@@ -81,7 +82,7 @@ public class DroneObservable {
 	    	GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, i*5, 5);
 	    }
 	    
-	    Matrix.setIdentityM(mModelView, 0);
+	   Matrix.setIdentityM(mModelView, 0);
         Matrix.scaleM(mModelView, 0, SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
         Matrix.multiplyMM(mCurrentRotation, 0, mDrone.getRotationMatrix(), 0,mModelView, 0);
         Matrix.multiplyMM(mModelView, 0, mCurrentTranslation, 0, mCurrentRotation, 0);
@@ -136,7 +137,6 @@ public class DroneObservable {
 		System.arraycopy(modelHelice,0,heliceData,modelHelice.length,modelHelice.length);
 		System.arraycopy(modelHelice,0,heliceData,modelHelice.length*2,modelHelice.length);
 		System.arraycopy(modelHelice,0,heliceData,modelHelice.length*3,modelHelice.length);
-		System.arraycopy(modelHelice,0,heliceData,modelHelice.length*4,modelHelice.length);
 		for(int i=0;i<modelSocle.length;i++){
 			heliceData[heliceData.length-i-1]=modelSocle[modelSocle.length-i-1];
 		}
@@ -165,11 +165,11 @@ public class DroneObservable {
 	public void drawAux(float[] mMatrixView , float[] mProjectionView, float angle,
 			int x , int y , int z){
 		Matrix.setIdentityM(mModelView, 0);
+	    Matrix.scaleM(mModelView,0,SCALE_FACTOR,SCALE_FACTOR, SCALE_FACTOR);
 	    Matrix.translateM(mModelView, 0,x*CENTER_X,y*CENTER_Y,z*CENTER_Z);
 	    Matrix.multiplyMM(mCurrentRotation, 0,mModelView,0,mDrone.getRotationMatrix(),0);
 	    Matrix.rotateM(mCurrentRotation,0, angle, 0.0f, 1.0f, 0.0f);
 	    System.arraycopy(mCurrentRotation,0,mModelView,0, 16);
-	    Matrix.scaleM(mModelView,0,SCALE_FACTOR,1.0f, SCALE_FACTOR);
 	    
 	    Matrix.multiplyMM(mCurrentRotation, 0, mCurrentTranslation, 0, mModelView, 0);
 	    System.arraycopy(mCurrentRotation,0, mModelView, 0, 16);

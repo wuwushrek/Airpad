@@ -27,7 +27,7 @@ public class DroneRender implements Renderer{
 	public void onDrawFrame(GL10 arg0) {
 		// TODO Auto-generated method stub
 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-		maillage.draw(mViewMatrix, mProjectionMatrix);
+		//maillage.draw(mViewMatrix, mProjectionMatrix);
 		drone.draw(mViewMatrix, mProjectionMatrix);
 	}
 
@@ -51,10 +51,23 @@ public class DroneRender implements Renderer{
 	@Override
 	public void onSurfaceCreated(GL10 arg0, EGLConfig arg1) {
 		// TODO Auto-generated method stub 
-	    Log.d("ON SURFACE CREATED", "CREATION DE SURFACE");
-	    Matrix.setLookAtM(this.mViewMatrix, 0, 0.0F, 0.7F, 2.0F, 0.0F, 0.0F, -5.0F, 0.0F, 1.0F, 0.0F);
-	    maillage.initialiseGround();
-	    drone.initDrone();
+			GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	    	Log.d("ON SURFACE CREATED", "CREATION DE SURFACE");
+	    	// Position the eye in front of the origin.
+	 		final float eyeX = 0.0f;
+	 		final float eyeY = 0.7f;
+	 		final float eyeZ = 2.0f;
+	 		// We are looking toward the distance
+	 		final float lookX = 0.0f;
+	 		final float lookY = 0.0f;
+	 		final float lookZ = -5.0f;
+	 		// Set our up vector. This is where our head would be pointing were we holding the camera.
+	 		final float upX = 0.0f;
+	 		final float upY = 1.0f;
+	 		final float upZ = 0.0f;
+	 		Matrix.setLookAtM(mViewMatrix, 0, eyeX, eyeY, eyeZ, lookX, lookY, lookZ, upX, upY, upZ);	
+	 		//maillage.initialiseGround();
+	 		drone.initDrone();
 	}
 
 }
